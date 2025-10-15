@@ -11,10 +11,11 @@ namespace tp_apis_equipo_3b.Controllers
 {
     public class ArticuloController : ApiController
     {
-        // GET: api/Articulo
-        public IEnumerable<string> Get()
+        // GET: api/Articulos
+        public IEnumerable<Articulo> Get()
         {
-            return new string[] { "value1", "value2" };
+            ArticuloSQL negocio = new ArticuloSQL();
+            return negocio.Listar();
         }
 
         // GET: api/Articulo/5
