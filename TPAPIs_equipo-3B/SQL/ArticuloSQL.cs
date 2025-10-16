@@ -108,5 +108,60 @@ namespace SQL
                 datos.cerrarConexion();
             }
         }
+
+        public int AgregarYDevolverId(Articulo nuevo)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearConsulta("INSERT INTO ARTICULOS (Codigo, Nombre, Descripcion, Precio, IdMarca, IdCategoria) " +
+                                     "OUTPUT INSERTED.Id VALUES (@Codigo, @Nombre, @Descripcion, @Precio, @IdMarca, @IdCategoria)");
+
+                datos.setearParametro("@Codigo", nuevo.Codigo);
+                datos.setearParametro("@Nombre", nuevo.Nombre);
+                datos.setearParametro("@Descripcion", nuevo.Descripcion);
+                datos.setearParametro("@Precio", nuevo.Precio);
+                datos.setearParametro("@IdMarca", nuevo.IdMarca);
+                datos.setearParametro("@IdCategoria", nuevo.IdCategoria);
+
+                return (int)datos.ejecutarEscalar();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public void Modificar(Articulo art)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearConsulta(@"UPDATE ARTICULOS SET Codigo=@Codigo, Nombre=@Nombre, Descripcion=@Descripcion, 
+                                       IdMarca=@IdMarca, IdCategoria=@IdCategoria, Precio=@Precio 
+                                       WHERE Id=@Id");
+                datos.setearParametro("@Codigo", art.Codigo);
+                datos.setearParametro("@Nombre", art.Nombre);
+                datos.setearParametro("@Descripcion", art.Descripcion);
+                datos.setearParametro("@IdMarca", art.IdMarca);
+                datos.setearParametro("@IdCategoria", art.IdCategoria);
+                datos.setearParametro("@Precio", art.Precio);
+                datos.setearParametro("@Id", art.Id);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
     }
 }
