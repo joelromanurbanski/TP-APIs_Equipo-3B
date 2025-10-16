@@ -69,6 +69,9 @@ namespace tp_apis_equipo_3b.Controllers
         // DELETE: api/Articulo/5
         public void Delete(int id)
         {
+            ArticuloSQL negocio = new ArticuloSQL();
+            negocio.Eliminar(id);
+
         }
     }
 }
