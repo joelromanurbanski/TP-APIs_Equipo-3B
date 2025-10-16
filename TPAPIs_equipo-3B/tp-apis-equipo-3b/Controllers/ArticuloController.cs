@@ -19,10 +19,17 @@ namespace tp_apis_equipo_3b.Controllers
         }
 
         // GET: api/Articulo/5
-        public string Get(int id)
+        public IHttpActionResult Get(int id)
         {
-            return "value";
+            ArticuloSQL negocio = new ArticuloSQL();
+            Articulo articulo = negocio.BuscarPorId(id);
+
+            if (articulo == null)
+                return NotFound();
+
+            return Ok(articulo);
         }
+
 
         // POST: api/Articulo
         public void Post([FromBody]string value)
